@@ -8,7 +8,7 @@
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">密码</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
+      <validate-input :rules="passwordRules" type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码"></validate-input>
     </div>
     <template #submit>
       <span class="btn btn-primary">提交</span>
@@ -44,6 +44,10 @@ export default defineComponent({
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' }
     ]
+    const passwordVal = ref('')
+    const passwordRules: RulesProp = [
+      { type: 'required', message: '密码不能为空' }
+    ]
     const onFormSubmit = (result: boolean) => {
       console.log('1234', result)
     }
@@ -51,6 +55,8 @@ export default defineComponent({
       currentUser,
       emailRules,
       emailVal,
+      passwordVal,
+      passwordRules,
       onFormSubmit
     }
   }
