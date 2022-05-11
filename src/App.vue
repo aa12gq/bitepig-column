@@ -4,11 +4,11 @@
      <form action="">
        <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-      <validate-input :rules="emailRules" v-model="emailVal"></validate-input>
+      <validate-input :rules="emailRules" v-model="emailVal" type="text" placeholder="请输入邮箱地址"></validate-input>
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">密码</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码">
     </div>
   </form>
   </div>
@@ -34,7 +34,7 @@ export default defineComponent({
     ValidateInput
   },
   setup () {
-    const emailVal = ref('bitepig')
+    const emailVal = ref('')
     const emailRules: RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' }
