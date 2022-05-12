@@ -14,6 +14,7 @@
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">密码</label>
+<<<<<<< HEAD
       <validate-input
         v-model="passwordVal"
         :rules="passwordRules"
@@ -22,6 +23,9 @@
         id="exampleInputPassword1"
         placeholder="请输入密码"
       ></validate-input>
+=======
+      <validate-input :rules="passwordRules" type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码"></validate-input>
+>>>>>>> 769ec32aeb3381799c4a026762dfb40db821e7fd
     </div>
     <template #submit>
       <span class="btn btn-primary">提交</span>
@@ -58,7 +62,11 @@ export default defineComponent({
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' }
     ]
+<<<<<<< HEAD
     const passwordVal = ref('123')
+=======
+    const passwordVal = ref('')
+>>>>>>> 769ec32aeb3381799c4a026762dfb40db821e7fd
     const passwordRules: RulesProp = [
       { type: 'required', message: '密码不能为空' }
     ]
@@ -72,8 +80,12 @@ export default defineComponent({
       emailVal,
       passwordVal,
       passwordRules,
+<<<<<<< HEAD
       onFormSubmit,
       inputRef
+=======
+      onFormSubmit
+>>>>>>> 769ec32aeb3381799c4a026762dfb40db821e7fd
     }
   }
 })
