@@ -62,8 +62,15 @@ export default defineComponent({
       return true
     }
     onMounted(() => {
-      emitter.emit('form-item-created', inputRef.val)
+      emitter.emit('form-item-created', validateInput)
     })
+    const clearInput = (res?: boolean) => {
+      if (res) {
+        inputRef.val = ''
+        emitter.off('clear-input', clearInput)
+      }
+    }
+    emitter.on('clear-input', clearInput)
     return {
       inputRef,
       validateInput,
