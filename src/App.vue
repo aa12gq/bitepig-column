@@ -4,11 +4,24 @@
      <validate-form @form-submit="onFormSubmit">
        <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-      <validate-input :rules="emailRules" v-model="emailVal" type="text" placeholder="请输入邮箱地址"></validate-input>
+      <validate-input
+        :rules="emailRules"
+        v-model="emailVal"
+        type="text"
+        placeholder="请输入邮箱地址"
+        ref="inputRef"
+         ></validate-input>
     </div>
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">密码</label>
-      <validate-input :rules="passwordRules" type="password" class="form-control" id="exampleInputPassword1" placeholder="请输入密码"></validate-input>
+      <validate-input
+        v-model="passwordVal"
+        :rules="passwordRules"
+        type="password"
+        class="form-control"
+        id="exampleInputPassword1"
+        placeholder="请输入密码"
+      ></validate-input>
     </div>
     <template #submit>
       <span class="btn btn-primary">提交</span>
@@ -39,16 +52,18 @@ export default defineComponent({
     ValidateForm
   },
   setup () {
-    const emailVal = ref('')
+    const inputRef = ref<any>()
+    const emailVal = ref('123@test.com')
     const emailRules: RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' },
       { type: 'email', message: '请输入正确的电子邮箱格式' }
     ]
-    const passwordVal = ref('')
+    const passwordVal = ref('123')
     const passwordRules: RulesProp = [
       { type: 'required', message: '密码不能为空' }
     ]
     const onFormSubmit = (result: boolean) => {
+      console.log('res', inputRef.value.validateInput())
       console.log('1234', result)
     }
     return {
@@ -57,7 +72,8 @@ export default defineComponent({
       emailVal,
       passwordVal,
       passwordRules,
-      onFormSubmit
+      onFormSubmit,
+      inputRef
     }
   }
 })
