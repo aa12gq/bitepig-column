@@ -18,8 +18,8 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import Dropdown from './Dropdown.vue'
-import DropdownItem from './DropdownItem.vue'
+import Dropdown from '../base/Dropdown.vue'
+import DropdownItem from '../base/DropdownItem.vue'
 export interface userProps{
   isLogin: boolean;
   name?: string;

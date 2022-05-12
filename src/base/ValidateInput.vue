@@ -14,17 +14,17 @@
 
 <script lang="ts">
 import { defineComponent, reactive, PropType, onMounted } from 'vue'
-import { emitter } from './ValidateForm.vue'
+import { emitter } from '../components/ValidateForm.vue'
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 interface RuleProp{
   type : 'required' | 'email',
   message: string,
 }
-export type RulesProp = RuleProp[]
+export type RulesProps = RuleProp[]
 export default defineComponent({
   name: 'ValidateInput',
   props: {
-    rules: Array as PropType<RulesProp>,
+    rules: Array as PropType<RulesProps>,
     modelValue: String
   },
   inheritAttrs: false,
