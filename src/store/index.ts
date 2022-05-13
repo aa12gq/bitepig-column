@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { testColumns, testPosts, currentUser, ColumnProps, PostProps, UserProps } from '@/testData'
+import { testColumns, testPosts, currentUser, ColumnProps, PostProps, UserProps } from '../testData'
 export interface GlobalDataProps{
   columns: ColumnProps[];
   posts: PostProps[];
@@ -14,6 +14,9 @@ const store = createStore({
   mutations: {
     login (state) {
       state.user = { ...state.user, isLogin: true, name: '咬楼猪' }
+    },
+    createPost (state, newPost) {
+      state.posts.push(newPost)
     }
   },
   getters: {
@@ -23,7 +26,7 @@ const store = createStore({
     getColumnById: (state) => (id:number) => {
       return state.columns.find(c => c.id === id)
     },
-    getPostsByCId: (state) => (cid:number) => {
+    getPostsById: (state) => (cid:number) => {
       return state.posts.filter(post => post.columnId === cid)
     }
   }

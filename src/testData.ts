@@ -18,12 +18,19 @@ export interface UserProps {
   isLogin: boolean;
   name?: string;
   id?: string;
+  columnId?:number;
+}
+
+export interface RuleProps {
+  type: 'required' | 'email';
+  message: string;
 }
 
 export const currentUser: UserProps = {
   isLogin: false,
   name: 'wangzha',
-  id: 'w_123'
+  id: 'w_123',
+  columnId: 1
 }
 
 export const testColumns: ColumnProps[] = [
