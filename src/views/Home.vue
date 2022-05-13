@@ -24,7 +24,6 @@ import { defineComponent, reactive, ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '../store'
 import ColumnList from '../components/ColumnList.vue'
-import { testColumns, ColumnProps } from '../testData'
 export default defineComponent({
   name: 'Home',
   components: {
@@ -33,8 +32,10 @@ export default defineComponent({
   setup () {
     const store = useStore<GlobalDataProps>()
     const list = computed(() => store.state.columns)
+    const biggerColumnLen = computed(() => store.getters.biggerColumnsLen)
     return {
-      list: list
+      list: list,
+      biggerColumnLen
     }
   }
 })
