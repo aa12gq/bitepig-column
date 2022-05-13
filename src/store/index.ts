@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { testColumns, testPosts, currentUser, ColumnProps, PostProps, UserProps } from '../testData'
+import { testColumns, testPosts, currentUser, ColumnProps, PostProps, UserProps } from '@/testData'
 export interface GlobalDataProps{
   columns: ColumnProps[];
   posts: PostProps[];

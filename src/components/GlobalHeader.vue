@@ -20,9 +20,9 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import Dropdown from '../base/Dropdown.vue'
-import DropdownItem from '../base/DropdownItem.vue'
-import { UserProps } from '../testData'
+import Dropdown from '@/base/Dropdown.vue'
+import DropdownItem from '@/base/DropdownItem.vue'
+import { UserProps } from '@/testData'
 export default defineComponent({
   name: 'GlobalHeader',
   components: { Dropdown, DropdownItem },
