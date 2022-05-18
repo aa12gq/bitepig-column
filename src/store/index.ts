@@ -9,7 +9,6 @@ export interface GlobalDataProps{
 }
 const getAndCommit = async (url: string, mutationName: string, commit: Commit) => {
   const { data } = await axios.get(url)
-  await new Promise(resolve => setTimeout(resolve, 3000))
   commit(mutationName, data)
 }
 const store = createStore<GlobalDataProps>({
