@@ -19,7 +19,7 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store'
 import PostList from '@/components/PostList.vue'
-import { ColumnProps } from '@/store/testData'
+import { ColumnProps, PostProps } from '@/store/testData'
 
 export default defineComponent({
   name: 'ColumnDetail',
@@ -47,7 +47,20 @@ export default defineComponent({
       }
       return selectColumn
     })
-    const postList = computed(() => store.getters.getPostsById(currentId))
+    const postList = computed(() => {
+      const list = store.getters.getPostsById(currentId) as PostProps[]
+      list.map(item => {
+        if (item.image && item.image.url) {
+          item.image.url = item.image.url + '?x-oss-process=image/resize,m_pad,h_100,w_100'
+        } else {
+          item.image = {
+            url: require('@/assets/column.jpg')
+          }
+        }
+        return item
+      })
+      return list
+    })
     return { column, postList }
   }
 })
