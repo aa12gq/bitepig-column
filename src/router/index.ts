@@ -17,14 +17,12 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: Login,
-      meta: { redirectAlreadyLogin: true }
+      component: Login
     },
     {
       path: '/signup',
       name: 'signup',
-      component: Signup,
-      meta: { redirectAlreadyLogin: true }
+      component: Signup
     },
     {
       path: '/column/:id',

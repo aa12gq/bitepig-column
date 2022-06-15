@@ -34,7 +34,7 @@ export interface RuleProps {
 }
 
 export const currentUser: UserProps = {
-  isLogin: true,
+  isLogin: false,
   name: 'wangzha',
   id: 'w_123',
   columnId: '1'
