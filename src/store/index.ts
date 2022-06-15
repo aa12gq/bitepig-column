@@ -44,33 +44,38 @@ const store = createStore<GlobalDataProps>({
       console.log(rawData.data.list)
       state.posts = rawData.data.list
     },
+    fetchCurrentUser (state, rawData) {
+      state.user = { isLogin: true, ...rawData.data }
+    },
     setLoading (state, status) {
       state.loading = status
     },
     login (state, rawData) {
-      state.token = rawData.data.token
+      const { token } = rawData.data
+      state.token = token
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`
     }
   },
   actions: {
     fetchColumns ({ commit }) {
       getAndCommit('/api/columns', 'fetchColumns', commit)
     },
-    // async fetchColumn ({ commit }, cid) {
-    //   const { data } = await axios.get(`/api/columns/${cid}`)
-    //   commit('fetchColumn', data)
-    // },
     fetchColumn ({ commit }, cid) {
       getAndCommit(`/api/columns/${cid}`, 'fetchColumn', commit)
     },
-    // async fetchPosts ({ commit }, cid) {
-    //   const { data } = await axios.get(`/api/columns/${cid}/posts`)
-    //   commit('fetchPosts', data)
-    // }
     fetchPosts ({ commit }, cid) {
       getAndCommit(`/api/columns/${cid}/posts`, 'fetchPosts', commit)
     },
+    fetchCurrentUser ({ commit }) {
+      getAndCommit('/api/user/current', 'fetchCurrentUser', commit)
+    },
     login ({ commit }, payload) {
       return postAndCommit('/api/user/login', 'login', commit, payload)
+    },
+    loginAndFetch ({ dispatch }, loginData) {
+      return dispatch('login', loginData).then(() => {
+        return dispatch('fetchCurrentUser')
+      })
     }
   },
   getters: {
