@@ -5,6 +5,7 @@ import store from '@/store'
 // interceptors 发送请求的拦截器
 axios.interceptors.request.use(config => {
   store.commit('setLoading', true)
+  store.commit('setError', { status: false, message: '' })
   return config
 })
 
