@@ -4,12 +4,18 @@ import { StorageType, StorageHandler } from '@/libs/storage'
 import axios from '@/libs/http'
 const storageType = StorageType.Local
 const storageHandler = new StorageHandler()
+export interface GlobalErrorProps{
+  status:boolean;
+  message?:string;
+}
 export interface GlobalDataProps{
+  error:GlobalErrorProps;
   token: string;
   loading: boolean;
   columns: ColumnProps[];
   posts: PostProps[];
   user: UserProps;
+
 }
 const getAndCommit = async (url: string, mutationName: string, commit: Commit) => {
   const { data } = await axios.get(url)
@@ -22,6 +28,7 @@ const postAndCommit = async (url: string, mutationName: string, commit: Commit, 
 }
 const store = createStore<GlobalDataProps>({
   state: {
+    error: { status: false },
     token: storageHandler.getItem(storageType, 'token') || '',
     loading: false,
     columns: [],
@@ -49,6 +56,9 @@ const store = createStore<GlobalDataProps>({
     },
     setLoading (state, status) {
       state.loading = status
+    },
+    setError (state, e:GlobalErrorProps) {
+      state.error = e
     },
     login (state, rawData) {
       const { token } = rawData.data
