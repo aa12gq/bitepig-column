@@ -1,6 +1,9 @@
 import { createStore, Commit } from 'vuex'
 import { currentUser, ColumnProps, PostProps, UserProps } from '@/store/testData'
+import { StorageType, StorageHandler } from '@/libs/storage'
 import axios from '@/libs/http'
+const storageType = StorageType.Local
+const storageHandler = new StorageHandler()
 export interface GlobalDataProps{
   token: string;
   loading: boolean;
@@ -19,16 +22,13 @@ const postAndCommit = async (url: string, mutationName: string, commit: Commit, 
 }
 const store = createStore<GlobalDataProps>({
   state: {
-    token: '',
+    token: storageHandler.getItem(storageType, 'token') || '',
     loading: false,
     columns: [],
     posts: [],
     user: currentUser
   },
   mutations: {
-    // login (state) {
-    //   state.user = { ...state.user, isLogin: true, name: '咬楼猪' }
-    // },
     createPost (state, newPost) {
       state.posts.push(newPost)
     },
@@ -53,6 +53,7 @@ const store = createStore<GlobalDataProps>({
     login (state, rawData) {
       const { token } = rawData.data
       state.token = token
+      storageHandler.setItem(storageType, 'token', token)
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
     }
   },
