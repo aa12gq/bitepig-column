@@ -17,8 +17,8 @@ axios.interceptors.response.use(resp => {
   return resp
 }, e => {
   console.log(e.response)
-  const { error } = e.response.data
-  store.commit('setError', { status: true, message: error })
+  const error = e.response.data.message
+  store.commit('setError', { status: true, message: '请检查输入是否正确' })
   store.commit('setLoading', false)
   return Promise.reject(error)
 })

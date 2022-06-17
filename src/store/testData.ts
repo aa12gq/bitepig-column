@@ -30,8 +30,9 @@ export interface ColumnProps {
 }
 
 export interface RuleProps {
-  type: 'required' | 'email';
+  type: 'required' | 'email' | 'custom';
   message: string;
+  validator?:() => boolean;
 }
 
 export const currentUser: UserProps = {
