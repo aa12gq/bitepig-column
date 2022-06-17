@@ -1,7 +1,15 @@
 <template>
   <div class="create-post-page">
     <h4>新建文章</h4>
-    <input type="file" name="file" />
+    <uploader
+    action="/api/upload"
+    :beforeUpload="beforeUpload"
+    @file-uploaded="onFileUploaded"
+    >
+    <template #uploaded="dataProps">
+      <img :src="dataProps.uploadedData.data.url" alt="" width="500">
+    </template>
+    </uploader>
     <validate-form @form-submit="onFormSubmit" @change.prevent="handleFileChange">
       <div class="mb-3">
         <label class="form-label">文章标题：</label>
@@ -37,12 +45,15 @@ import axios from 'axios'
 import { GlobalDataProps } from '@/store'
 import ValidateInput, { RulesProps } from '@/base/ValidateInput.vue'
 import ValidateForm from '@/base/ValidateForm.vue'
-import { PostProps } from '@/store/testData'
+import { PostProps, ResponseType, ImageProps } from '@/store/testData'
+import Uploader from '@/base/Uploader.vue'
+import createMessage from '@/base/createMessage'
 export default defineComponent({
   name: 'CreatePost',
   components: {
     ValidateInput,
-    ValidateForm
+    ValidateForm,
+    Uploader
   },
   setup () {
     const store = useStore<GlobalDataProps>()
@@ -85,13 +96,25 @@ export default defineComponent({
         })
       }
     }
+    const beforeUpload = (file:File) => {
+      const isJPG = file.type === 'image/jpeg'
+      if (!isJPG) {
+        createMessage('上传图片只能是 JPG 格式', 'error')
+      }
+      return isJPG
+    }
+    const onFileUploaded = (rawData: ResponseType<ImageProps>) => {
+      createMessage(`上传图片ID ${rawData.data._id}`, 'success')
+    }
     return {
       titleVal,
       titleRules,
       contentVal,
       contentRules,
       onFormSubmit,
-      handleFileChange
+      handleFileChange,
+      beforeUpload,
+      onFileUploaded
     }
   }
 })

@@ -66,6 +66,11 @@ const store = createStore<GlobalDataProps>({
       state.token = token
       storageHandler.setItem(storageType, 'token', token)
       axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    },
+    logout (state) {
+      state.token = ''
+      storageHandler.remove(storageType, 'token')
+      delete axios.defaults.headers.common.Authorization
     }
   },
   actions: {
