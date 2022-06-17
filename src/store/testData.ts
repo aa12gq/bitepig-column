@@ -34,6 +34,11 @@ export interface RuleProps {
   message: string;
   validator?:() => boolean;
 }
+export interface ResponseType<P = any> {
+  code: number;
+  msg: string;
+  data: P;
+}
 
 export const currentUser: UserProps = {
   isLogin: false
