@@ -4,7 +4,7 @@
   :class="classObject" v-if="isVisible"
   >
   <span>{{message}}</span>
-  <button type="button" class="btn-close" aria-label="Close" @click.prevent="hide"></button>
+  <button type="button" class="close btn-close" aria-label="Close" @click.prevent="hide"></button>
 </div>
  </teleport>
 </template>

@@ -10,6 +10,14 @@
         <span class="text-muted col text-right font-italic">发表于：{{ currentPost.createdAt }}</span>
       </div>
       <div v-html="currentHTML"></div>
+        <div v-if="showEditArea" class="btn-group mt-5">
+        <router-link
+          type="button"
+          class="btn btn-success"
+          :to="{ name: 'create', query: { id: currentPost._id }}"
+        >编辑</router-link>
+        <button type="button" class="btn btn-danger">删除</button>
+      </div>
     </article>
   </div>
 </template>
@@ -20,7 +28,7 @@ import { defineComponent, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { GlobalDataProps } from '@/store'
-import { PostProps, ImageProps } from '@/store/testData'
+import { PostProps, ImageProps, UserProps } from '@/store/testData'
 import UserProfile from '@/components/UserProfile.vue'
 export default defineComponent({
   name: 'PostDetail',
@@ -43,6 +51,16 @@ export default defineComponent({
       }
       return true
     })
+    const showEditArea = computed(() => {
+      const { isLogin, _id } = store.state.user
+      if (currentPost.value && currentPost.value.author && isLogin) {
+        const postAuthor = currentPost.value.author as UserProps
+        return postAuthor._id === _id
+      } else {
+        return false
+      }
+    })
+    console.log(showEditArea.value)
     const currentImageUrl = computed(() => {
       if (currentPost.value && currentPost.value.image) {
         const { image } = currentPost.value
@@ -54,7 +72,8 @@ export default defineComponent({
     return {
       currentPost,
       currentHTML,
-      currentImageUrl
+      currentImageUrl,
+      showEditArea
     }
   }
 })
