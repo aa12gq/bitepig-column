@@ -14,6 +14,7 @@ export interface PostProps {
   createdAt?: string;
   column: string;
   author?: string;
+  isHTML?: boolean;
 }
 
 export interface UserProps {
@@ -21,7 +22,9 @@ export interface UserProps {
   nickName?: string;
   _id?: string;
   column?: string;
-  email?:string;
+  email?: string;
+  description?: string;
+  avatar?: ImageProps;
 }
 
 export interface ColumnProps {
