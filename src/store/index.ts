@@ -1,7 +1,7 @@
 import { createStore, Commit } from 'vuex'
 import { currentUser, ColumnProps, PostProps, UserProps } from '@/store/testData'
 import { StorageType, StorageHandler } from '@/libs/storage'
-import axios from '@/libs/http'
+import { axios, AxiosRequestConfig } from '@/libs/http'
 const storageType = StorageType.Local
 const storageHandler = new StorageHandler()
 export interface GlobalErrorProps{
@@ -17,13 +17,8 @@ export interface GlobalDataProps{
   user: UserProps;
 
 }
-const getAndCommit = async (url: string, mutationName: string, commit: Commit) => {
-  const { data } = await axios.get(url)
-  commit(mutationName, data)
-  return data
-}
-const postAndCommit = async (url: string, mutationName: string, commit: Commit, payload: any) => {
-  const { data } = await axios.post(url, payload)
+const asyncAndCommit = async (url: string, mutationName: string, commit: Commit, config: AxiosRequestConfig = { method: 'get' }) => {
+  const { data } = await axios(url, config)
   commit(mutationName, data)
   return data
 }
@@ -53,11 +48,21 @@ const store = createStore<GlobalDataProps>({
       state.posts = rawData.data.list
     },
     fetchPost (state, rawData) {
-      // 更新替换对应post的数据
-      const targetId = rawData.data._id
-      const oldIndex = state.posts.findIndex(c => c._id === targetId)
-      const newPost = rawData.data
-      state.posts.splice(oldIndex, 1, newPost)
+      state.posts = [rawData.data]
+      // // 更新替换对应post的数据
+      // const targetId = rawData.data._id
+      // const oldIndex = state.posts.findIndex(c => c._id === targetId)
+      // const newPost = rawData.data
+      // state.posts.splice(oldIndex, 1, newPost)
+    },
+    updatePost (state, { data }) {
+      state.posts = state.posts.map(post => {
+        if (post._id === data._id) {
+          return data
+        } else {
+          return post
+        }
+      })
     },
     fetchCurrentUser (state, rawData) {
       state.user = { isLogin: true, ...rawData.data }
@@ -83,22 +88,22 @@ const store = createStore<GlobalDataProps>({
   },
   actions: {
     fetchColumns ({ commit }) {
-      return getAndCommit('/api/columns', 'fetchColumns', commit)
+      return asyncAndCommit('/api/columns', 'fetchColumns', commit)
     },
     fetchColumn ({ commit }, cid) {
-      return getAndCommit(`/api/columns/${cid}`, 'fetchColumn', commit)
+      return asyncAndCommit(`/api/columns/${cid}`, 'fetchColumn', commit)
     },
     fetchPosts ({ commit }, cid) {
-      return getAndCommit(`/api/columns/${cid}/posts`, 'fetchPosts', commit)
+      return asyncAndCommit(`/api/columns/${cid}/posts`, 'fetchPosts', commit)
     },
     fetchPost ({ commit }, id) {
-      return getAndCommit(`/api/posts/${id}`, 'fetchPost', commit)
+      return asyncAndCommit(`/api/posts/${id}`, 'fetchPost', commit)
     },
     fetchCurrentUser ({ commit }) {
-      return getAndCommit('/api/user/current', 'fetchCurrentUser', commit)
+      return asyncAndCommit('/api/user/current', 'fetchCurrentUser', commit)
     },
     login ({ commit }, payload) {
-      return postAndCommit('/api/user/login', 'login', commit, payload)
+      return asyncAndCommit('/api/user/login', 'login', commit, { method: 'post', data: payload })
     },
     loginAndFetch ({ dispatch }, loginData) {
       return dispatch('login', loginData).then(() => {
@@ -106,10 +111,16 @@ const store = createStore<GlobalDataProps>({
       })
     },
     register ({ commit }, payload) {
-      return postAndCommit('/api/auth/signup/using-email', 'register', commit, payload)
+      return asyncAndCommit('/api/users', 'register', commit, { method: 'post', data: payload })
     },
     createPost ({ commit }, payload) {
-      return postAndCommit('/api/posts', 'createPost', commit, payload)
+      return asyncAndCommit('/api/posts', 'createPost', commit, { method: 'post', data: payload })
+    },
+    updatePost ({ commit }, { id, payload }) {
+      return asyncAndCommit(`/api/posts/${id}`, 'updatePost', commit, {
+        method: 'patch',
+        data: payload
+      })
     }
   },
   getters: {

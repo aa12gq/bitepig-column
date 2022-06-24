@@ -6,7 +6,7 @@ import CreatePost from '@/views/CreatePost.vue'
 import Signup from '@/views/Signup.vue'
 import PostDetail from '@/views/PostDetail.vue'
 import store from '@/store'
-import axios from 'axios'
+import { axios } from '@/libs/http'
 const routerHistory = createWebHistory()
 const router = createRouter({
   history: routerHistory,
