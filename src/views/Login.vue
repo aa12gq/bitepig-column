@@ -54,7 +54,6 @@ export default defineComponent({
     ]
     const router = useRouter()
     const store = useStore()
-
     const onFormSubmit = (result: boolean) => {
       if (result) {
         const payload = {
