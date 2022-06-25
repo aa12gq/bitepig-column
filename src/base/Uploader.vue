@@ -40,7 +40,7 @@ export default defineComponent({
       type: Object
     }
   },
-  emits: ['file-uploaded', 'file-uploaded-error'],
+  emits: ['file-uploaded-success', 'file-uploaded-error'],
   inheritAttrs: false,
   setup (props, context) {
     const fileInput = ref<null | HTMLInputElement>(null)
@@ -75,7 +75,7 @@ export default defineComponent({
         }).then(resp => {
           fileStatus.value = 'success'
           uploadedData.value = resp.data
-          context.emit('file-uploaded', resp.data)
+          context.emit('file-uploaded-success', resp.data)
         }).catch((error) => {
           fileStatus.value = 'error'
           context.emit('file-uploaded-error', { error })

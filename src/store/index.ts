@@ -111,7 +111,7 @@ const store = createStore<GlobalDataProps>({
     },
     updatePost ({ commit }, { id, payload }) {
       return asyncAndCommit(`/api/posts/${id}`, 'updatePost', commit, {
-        method: 'patch',
+        method: 'put',
         data: payload
       })
     },
