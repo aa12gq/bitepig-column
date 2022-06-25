@@ -33,7 +33,7 @@ const store = createStore<GlobalDataProps>({
     loading: false,
     columns: {},
     posts: {},
-    user: currentUser
+    user: { isLogin: false }
   },
   mutations: {
     createPost (state, newPost) {
@@ -55,6 +55,8 @@ const store = createStore<GlobalDataProps>({
       state.posts[data.id] = data
     },
     fetchCurrentUser (state, rawData) {
+      console.log('fetchCurrentUser', rawData.data)
+
       state.user = { isLogin: true, ...rawData.data }
     },
     deletePost (state, { data }) {
@@ -111,7 +113,7 @@ const store = createStore<GlobalDataProps>({
     },
     updatePost ({ commit }, { id, payload }) {
       return asyncAndCommit(`/api/posts/${id}`, 'updatePost', commit, {
-        method: 'patch',
+        method: 'put',
         data: payload
       })
     },

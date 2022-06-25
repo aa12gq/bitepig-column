@@ -114,7 +114,7 @@ export default defineComponent({
             content: contentVal.value,
             columnId: columnId,
             createdAt: new Date().toLocaleString(),
-            author: id
+            authorId: id
           }
           if (imageId) {
             newPost.image = imageId
