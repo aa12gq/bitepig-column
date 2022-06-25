@@ -13,6 +13,7 @@
       </div>
     <input
     type="file"
+    name="image"
     class="file-input d-none"
     ref="fileInput"
     @change="handleFileChange"
