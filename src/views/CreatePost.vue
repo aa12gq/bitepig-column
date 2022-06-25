@@ -78,7 +78,7 @@ export default defineComponent({
 
     const uploadedData = ref()
     const titleVal = ref('')
-    const imageId = ref('')
+    let imageId = ''
     const titleRules: RulesProps = [
       { type: 'required', message: '文章标题不能为空' }
     ]
@@ -102,7 +102,7 @@ export default defineComponent({
     })
     const onFileUploadedSuccess = (rawData: ResponseType<ImageProps>) => {
       if (rawData.data.id) {
-        imageId.value = rawData.data.id
+        imageId = rawData.data.id
       }
     }
     const onFormSubmit = (result: boolean) => {
@@ -116,8 +116,8 @@ export default defineComponent({
             createdAt: new Date().toLocaleString(),
             authorId: id
           }
-          if (imageId.value) {
-            newPost.image = imageId.value
+          if (imageId) {
+            newPost.image = imageId
           }
           const actionName = isEditMode ? 'updatePost' : 'createPost'
           const sendData = isEditMode ? {
