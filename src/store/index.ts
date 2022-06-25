@@ -2,21 +2,25 @@ import { createStore, Commit } from 'vuex'
 import { currentUser, ColumnProps, PostProps, UserProps } from '@/store/testData'
 import { StorageType, StorageHandler } from '@/libs/storage'
 import { axios, AxiosRequestConfig } from '@/libs/http'
+import { arrToObj, objToArr } from '@/helper'
 const storageType = StorageType.Local
 const storageHandler = new StorageHandler()
 export interface GlobalErrorProps{
   status:boolean;
   message?:string;
 }
+interface ListProps<P> {
+  [id: string]: P;
+}
 export interface GlobalDataProps{
   error:GlobalErrorProps;
   token: string;
   loading: boolean;
-  columns: ColumnProps[];
-  posts: PostProps[];
+  columns: ListProps<ColumnProps>;
+  posts: ListProps<PostProps>;
   user: UserProps;
-
 }
+
 const asyncAndCommit = async (url: string, mutationName: string, commit: Commit, config: AxiosRequestConfig = { method: 'get' }) => {
   const { data } = await axios(url, config)
   commit(mutationName, data)
@@ -27,46 +31,34 @@ const store = createStore<GlobalDataProps>({
     error: { status: false },
     token: storageHandler.getItem(storageType, 'token') || '',
     loading: false,
-    columns: [],
-    posts: [],
+    columns: {},
+    posts: {},
     user: currentUser
   },
   mutations: {
     createPost (state, newPost) {
-      state.posts.push(newPost)
+      state.posts[newPost.id] = newPost
     },
     fetchColumns (state, rawData) {
-      state.columns = rawData.data
+      state.columns = arrToObj(rawData.data)
     },
     fetchColumn (state, rawData) {
-      console.log(rawData.data)
-      state.columns = [rawData.data]
+      state.columns[rawData.data.id] = rawData.data
     },
     fetchPosts (state, rawData) {
-      state.posts = rawData.list
+      state.posts = arrToObj(rawData.list)
     },
     fetchPost (state, rawData) {
-      state.posts = [rawData.data]
-      // // 更新替换对应post的数据
-      // const targetId = rawData.data._id
-      // const oldIndex = state.posts.findIndex(c => c._id === targetId)
-      // const newPost = rawData.data
-      // state.posts.splice(oldIndex, 1, newPost)
+      state.posts[rawData.data.id] = rawData.data
     },
     updatePost (state, { data }) {
-      state.posts = state.posts.map(post => {
-        if (post.id === data.id) {
-          return data
-        } else {
-          return post
-        }
-      })
+      state.posts[data.id] = data
     },
     fetchCurrentUser (state, rawData) {
       state.user = { isLogin: true, ...rawData.data }
     },
     deletePost (state, { data }) {
-      state.posts = state.posts.filter(post => post.id !== data.id)
+      delete state.posts[data.id]
     },
     setLoading (state, status) {
       state.loading = status
@@ -130,16 +122,17 @@ const store = createStore<GlobalDataProps>({
     }
   },
   getters: {
-    getColumnById: (state) => (id: string) => {
-      return state.columns.find(c => c.id === id)
+    getColumns: (state) => {
+      return objToArr(state.columns)
     },
-    getPostsById: (state) => (cid:string) => {
-      return state.posts
+    getColumnById: (state) => (id: string) => {
+      return state.columns[id]
+    },
+    getPostsByCId: (state) => (cid:string) => {
+      return objToArr(state.posts)
     },
     getCurrentPost: (state) => (id: string) => {
-      console.log('tst', state.posts)
-
-      return state.posts.find(c => c.id === id)
+      return state.posts[id]
     }
   }
 })

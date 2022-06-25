@@ -42,7 +42,7 @@ export default defineComponent({
       return selectColumn
     })
     const postList = computed(() => {
-      const list = store.getters.getPostsById(currentId) as PostProps[]
+      const list = store.getters.getPostsByCId(currentId) as PostProps[]
       return list
     })
     return { column, postList }
