@@ -1,31 +1,10 @@
 import { createStore, Commit } from 'vuex'
-import { currentUser, ColumnProps, PostProps, UserProps } from '@/store/testData'
+import { GlobalDataProps, GlobalErrorProps } from '@/declareData'
 import { StorageType, StorageHandler } from '@/libs/storage'
 import { axios, AxiosRequestConfig } from '@/libs/http'
 import { arrToObj, objToArr } from '@/helper'
 const storageType = StorageType.Local
 const storageHandler = new StorageHandler()
-export interface GlobalErrorProps{
-  status:boolean;
-  message?:string;
-}
-interface ListProps<P> {
-  [id: string]: P;
-}
-export interface GlobalDataProps{
-  error:GlobalErrorProps;
-  token: string;
-  loading: boolean;
-  columns: {
-    data: ListProps<ColumnProps>;
-    isLoaded: boolean;
-  };
-  posts: {
-    data: ListProps<PostProps>;
-    loadedColumns: Array<string>;
-  };
-  user: UserProps;
-}
 
 const asyncAndCommit = async (url: string, mutationName: string, commit: Commit,
   config: AxiosRequestConfig = { method: 'get' }, extraData?: any) => {
@@ -44,12 +23,9 @@ const store = createStore<GlobalDataProps>({
     loading: false,
     columns: { data: {}, isLoaded: false },
     posts: { data: {}, loadedColumns: [] },
-    user: currentUser
+    user: { isLogin: false }
   },
   mutations: {
-    createPost (state, newPost) {
-      state.posts.data[newPost.id] = newPost
-    },
     fetchColumns (state, rawData) {
       state.columns.data = arrToObj(rawData.data)
       state.columns.isLoaded = true
@@ -64,6 +40,9 @@ const store = createStore<GlobalDataProps>({
     },
     fetchPost (state, rawData) {
       state.posts.data[rawData.data.id] = rawData.data
+    },
+    createPost (state, newPost) {
+      state.posts.data[newPost.id] = newPost
     },
     updatePost (state, { data }) {
       state.posts.data[data.id] = data
@@ -117,20 +96,6 @@ const store = createStore<GlobalDataProps>({
         return Promise.resolve({ data: currentPost })
       }
     },
-    fetchCurrentUser ({ commit }) {
-      return asyncAndCommit('/api/current', 'fetchCurrentUser', commit)
-    },
-    login ({ commit }, payload) {
-      return asyncAndCommit('/api/auth/login/using-email', 'login', commit, { method: 'post', data: payload })
-    },
-    loginAndFetch ({ dispatch }, loginData) {
-      return dispatch('login', loginData).then(() => {
-        return dispatch('fetchCurrentUser')
-      })
-    },
-    register ({ commit }, payload) {
-      return asyncAndCommit('/api/auth/signup/using-email', 'register', commit, { method: 'post', data: payload })
-    },
     createPost ({ commit }, payload) {
       return asyncAndCommit('/api/posts', 'createPost', commit, { method: 'post', data: payload })
     },
@@ -144,6 +109,20 @@ const store = createStore<GlobalDataProps>({
       return asyncAndCommit(`/api/posts/${id}`, 'deletePost', commit, {
         method: 'delete'
       })
+    },
+    fetchCurrentUser ({ commit }) {
+      return asyncAndCommit('/api/current', 'fetchCurrentUser', commit)
+    },
+    login ({ commit }, payload) {
+      return asyncAndCommit('/api/auth/login/using-email', 'login', commit, { method: 'post', data: payload })
+    },
+    loginAndFetch ({ dispatch }, loginData) {
+      return dispatch('login', loginData).then(() => {
+        return dispatch('fetchCurrentUser')
+      })
+    },
+    register ({ commit }, payload) {
+      return asyncAndCommit('/api/auth/signup/using-email', 'register', commit, { method: 'post', data: payload })
     }
   },
   getters: {

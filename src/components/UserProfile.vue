@@ -11,7 +11,7 @@
 </template>
 
 <script lang='ts'>
-import { UserProps } from '@/store/testData'
+import { UserProps } from '@/declareData'
 import { defineComponent, PropType, computed } from 'vue'
 export default defineComponent({
   name: 'UserProfile',

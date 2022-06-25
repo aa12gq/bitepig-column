@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import Message from '@/base/Message.vue'
-export type MessageType = 'success' | 'error' | 'default'
+// export type MessageType = 'success' | 'error' | 'default'
+import { MessageType } from '@/declareData'
 
 const createMessage = (message:string, type:MessageType, timeout = 2000) => {
   const messageInstance = createApp(Message, {

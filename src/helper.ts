@@ -1,4 +1,4 @@
-import { ColumnProps } from '@/store/testData'
+import { ColumnProps } from '@/declareData'
 
 export function generateFitUrl (column: ColumnProps, width: number, height: number) {
   if (column.avatar) {
