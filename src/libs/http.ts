@@ -13,7 +13,7 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(resp => {
   setTimeout(() => {
     store.commit('setLoading', false)
-  }, 1000)
+  }, 300)
   return resp
 }, e => {
   console.log(e.response)

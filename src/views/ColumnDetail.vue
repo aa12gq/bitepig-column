@@ -23,8 +23,8 @@ import { defineComponent, computed, onMounted, watch, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import PostList from '@/components/PostList.vue'
-import { GlobalDataProps, ColumnProps, PostProps } from '@/declareData'
-import { generateFitUrl } from '@/helper'
+import { GlobalDataProps, ColumnProps } from '@/declareData'
+import { addColumnAvatar } from '@/helper'
 import useLoadMore from '@/hooks/useLoadMore'
 type ColumnIdProps = string | undefined;
 export default defineComponent({
@@ -35,7 +35,7 @@ export default defineComponent({
   setup () {
     const store = useStore<GlobalDataProps>()
     const route = useRoute()
-    const currentId = route.params.id
+    const currentId = route.params.id as ColumnIdProps
     const loaded = reactive({
       currentPage: 0,
       total: 0
@@ -55,12 +55,12 @@ export default defineComponent({
     const column = computed(() => {
       const selectColumn = store.getters.getColumnById(currentId) as ColumnProps
       if (selectColumn) {
-        generateFitUrl(selectColumn, 100, 100)
+        addColumnAvatar(selectColumn, 100, 100)
       }
       return selectColumn
     })
     const params = {
-      columnId: String(currentId),
+      columnId: currentId,
       perPage: 3,
       currentPage: loaded.currentPage ? loaded.currentPage + 1 : 2
     }
@@ -69,10 +69,7 @@ export default defineComponent({
       total,
       params
     )
-    const postList = computed(() => {
-      const list = store.getters.getPostsByCId(currentId) as PostProps[]
-      return list
-    })
+    const postList = computed(() => store.getters.getPostsByCId(currentId))
     return {
       column,
       postList,

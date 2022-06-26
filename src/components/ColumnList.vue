@@ -16,6 +16,7 @@
 
 import { defineComponent, PropType, computed } from 'vue'
 import { ColumnProps } from '@/declareData'
+import { addColumnAvatar } from '@/helper'
 export default defineComponent({
   name: 'ColumnList',
   props: {
@@ -34,6 +35,7 @@ export default defineComponent({
         } else {
           column.avatar.url = column.avatar.url + ''
         }
+        // addColumnAvatar(column, 50, 50)
         return column
       })
     })

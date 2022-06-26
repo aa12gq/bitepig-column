@@ -29,7 +29,6 @@ const store = createStore<GlobalDataProps>({
     fetchColumns (state, rawData) {
       const { data } = state.columns
       const { TotalCount, CurrentPage } = rawData.pager
-      console.log('1', CurrentPage)
       if (CurrentPage === 3) {
         return
       }
@@ -44,7 +43,7 @@ const store = createStore<GlobalDataProps>({
     },
     fetchPosts (state, { data: rawData, extraData: columnId }) {
       const { data } = state.posts
-      const { TotalCount, CurrentPage } = rawData.data
+      const { TotalCount, CurrentPage } = rawData.pager
       state.posts.data = { ...data, ...arrToObj(rawData.data) }
       state.posts.loadedColumns[columnId] = {
         columnId: columnId,
@@ -100,10 +99,12 @@ const store = createStore<GlobalDataProps>({
     },
     fetchPosts ({ state, commit }, params = {}) {
       const { columnId, currentPage = 1, perPage = 3 } = params
-      // console.log(params)
       const loadedPost = state.posts.loadedColumns[columnId]
       // 如果loadedPost存在 不为 undefined
       if (!loadedPost) {
+        if (columnId === undefined) {
+          return
+        }
         return asyncAndCommit(`/api/columns/${columnId}/posts?page=${currentPage}&perPage=${perPage}`, 'fetchPosts', commit, { method: 'get' }, columnId)
       } else {
         const loadedPostCurrentPage = loadedPost.currentPage || 0

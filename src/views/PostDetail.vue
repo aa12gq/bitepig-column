@@ -54,6 +54,7 @@ export default defineComponent({
     const modalIsVisible = ref(false)
     onMounted(() => {
       store.dispatch('fetchPost', currentId)
+      location.reload()
     })
     const currentPost = computed<PostProps>(() => store.getters.getCurrentPost(currentId))
     const currentHTML = computed(() => {
@@ -76,7 +77,7 @@ export default defineComponent({
     const currentImageUrl = computed(() => {
       if (currentPost.value && currentPost.value.image) {
         const { image } = currentPost.value
-        return (image as ImageProps).url + '?x-oss-process=image/resize,w_850'
+        return (image as ImageProps).url + ''
       } else {
         return null
       }
