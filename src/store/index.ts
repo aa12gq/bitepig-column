@@ -1,8 +1,8 @@
 import { createStore, Commit } from 'vuex'
-import { GlobalDataProps, GlobalErrorProps } from '@/declareData'
+import { GlobalDataProps, GlobalErrorProps } from '@/store/types'
 import { StorageType, StorageHandler } from '@/libs/storage'
 import { axios, AxiosRequestConfig } from '@/libs/http'
-import { arrToObj, objToArr } from '@/helper'
+import { arrToObj, objToArr } from '@/libs/helper'
 const storageType = StorageType.Local
 const storageHandler = new StorageHandler()
 
@@ -158,6 +158,9 @@ const store = createStore<GlobalDataProps>({
       return state.columns.data[id]
     },
     getPostsByCId: (state) => (cid: string) => {
+      console.log('没过滤的数据', state.posts.data)
+      console.log('过滤后的数据', objToArr(state.posts.data).forEach(post => post.columnId === cid))
+
       return objToArr(state.posts.data)
     },
     getCurrentPost: (state) => (id: string) => {

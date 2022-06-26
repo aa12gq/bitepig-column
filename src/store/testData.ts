@@ -1,4 +1,4 @@
-import { ColumnProps, PostProps, UserProps } from '@/declareData'
+import { ColumnProps, PostProps, UserProps } from '@/store/types'
 export const currentUser: UserProps = {
   isLogin: false
 }

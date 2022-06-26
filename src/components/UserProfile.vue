@@ -11,8 +11,8 @@
 </template>
 
 <script lang='ts'>
-import { UserProps } from '@/declareData'
-import { addColumnAvatar } from '@/helper'
+import { UserProps } from '@/store/types'
+import { addColumnAvatar } from '@/libs/helper'
 import { defineComponent, PropType, computed } from 'vue'
 export default defineComponent({
   name: 'UserProfile',

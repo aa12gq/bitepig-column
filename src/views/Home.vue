@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { GlobalDataProps } from '@/declareData'
+import { GlobalDataProps } from '@/store/types'
 import useLoadMore from '@/hooks/useLoadMore'
 import ColumnList from '@/components/ColumnList.vue'
 export default defineComponent({

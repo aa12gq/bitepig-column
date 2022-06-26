@@ -57,10 +57,10 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import ValidateInput, { RulesProps } from '@/base/ValidateInput.vue'
 import ValidateForm from '@/base/ValidateForm.vue'
-import { GlobalDataProps, PostProps, ResponseType, ImageProps } from '@/declareData'
+import { GlobalDataProps, PostProps, ResponseType, ImageProps } from '@/store/types'
 import Uploader from '@/base/Uploader.vue'
 import createMessage from '@/base/createMessage'
-import { beforeUploadCheck } from '@/helper'
+import { beforeUploadCheck } from '@/libs/helper'
 export default defineComponent({
   name: 'CreatePost',
   components: {

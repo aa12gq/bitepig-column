@@ -43,7 +43,7 @@ import { defineComponent, onMounted, computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import MarkdownIt from 'markdown-it'
-import { GlobalDataProps, PostProps, ImageProps, UserProps, ResponseType } from '@/declareData'
+import { GlobalDataProps, PostProps, ImageProps, UserProps, ResponseType } from '@/store/types'
 import UserProfile from '@/components/UserProfile.vue'
 import Modal from '@/base/Modal.vue'
 import createMessage from '@/base/createMessage'
@@ -62,7 +62,6 @@ export default defineComponent({
     const modalIsVisible = ref(false)
     onMounted(() => {
       store.dispatch('fetchPost', currentId)
-      location.reload()
     })
     const currentPost = computed<PostProps>(() => store.getters.getCurrentPost(currentId))
     const currentHTML = computed(() => {

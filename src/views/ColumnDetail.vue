@@ -23,8 +23,8 @@ import { defineComponent, computed, onMounted, watch, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import PostList from '@/components/PostList.vue'
-import { GlobalDataProps, ColumnProps } from '@/declareData'
-import { addColumnAvatar } from '@/helper'
+import { GlobalDataProps, ColumnProps } from '@/store/types'
+import { addColumnAvatar } from '@/libs/helper'
 import useLoadMore from '@/hooks/useLoadMore'
 type ColumnIdProps = string | undefined;
 export default defineComponent({

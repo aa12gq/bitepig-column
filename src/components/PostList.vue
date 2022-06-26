@@ -21,8 +21,8 @@
 // import { defineComponent, PropType } from 'vue'
 // import { PostProps } from '@/declareData'
 import { defineComponent, PropType, computed } from 'vue'
-import { PostProps, ImageProps } from '@/declareData'
-import { generateFitUrl } from '@/helper'
+import { PostProps, ImageProps } from '@/store/types'
+import { generateFitUrl } from '@/libs/helper'
 export default defineComponent({
   name: 'PostList',
   props: {

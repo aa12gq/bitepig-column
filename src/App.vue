@@ -19,7 +19,7 @@
 import { defineComponent, computed, watch } from 'vue'
 import Loader from '@/base/Loader.vue'
 import { useStore } from 'vuex'
-import { GlobalDataProps } from '@/declareData'
+import { GlobalDataProps } from '@/store/types'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader from '@/components/GlobalHeader.vue'
 import createMessage from '@/base/createMessage'

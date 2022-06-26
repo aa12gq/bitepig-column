@@ -13,7 +13,7 @@
 import { defineComponent, PropType, ref } from 'vue'
 import useDOMCreate from '@/hooks/useDomCreate'
 // export type MessageType = 'success' | 'error' | 'default'
-import { MessageType } from '@/declareData'
+import { MessageType } from '@/store/types'
 export default defineComponent({
   name: 'Messag ',
   props: {
