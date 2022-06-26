@@ -22,7 +22,7 @@ const store = createStore<GlobalDataProps>({
     token: storageHandler.getItem(storageType, 'token') || '',
     loading: false,
     columns: { data: {}, currentPage: 0, total: 0 },
-    posts: { data: {}, loadedColumns: [] },
+    posts: { data: {}, loadedColumns: {} },
     user: { isLogin: false }
   },
   mutations: {
@@ -43,9 +43,14 @@ const store = createStore<GlobalDataProps>({
       state.columns.data[rawData.data.id] = rawData.data
     },
     fetchPosts (state, { data: rawData, extraData: columnId }) {
-      console.log(rawData, columnId)
-      state.posts.data = { ...state.posts.data, ...arrToObj(rawData.list) }
-      state.posts.loadedColumns.push(columnId)
+      const { data } = state.posts
+      const { TotalCount, CurrentPage } = rawData.data
+      state.posts.data = { ...data, ...arrToObj(rawData.data) }
+      state.posts.loadedColumns[columnId] = {
+        columnId: columnId,
+        total: TotalCount,
+        currentPage: CurrentPage * 1
+      }
     },
     fetchPost (state, rawData) {
       state.posts.data[rawData.data.id] = rawData.data
@@ -93,9 +98,18 @@ const store = createStore<GlobalDataProps>({
         return asyncAndCommit(`/api/columns/${cid}`, 'fetchColumn', commit)
       }
     },
-    fetchPosts ({ state, commit }, cid) {
-      if (!state.posts.loadedColumns.includes(cid)) {
-        return asyncAndCommit(`/api/columns/${cid}/posts`, 'fetchPosts', commit, { method: 'get' }, cid)
+    fetchPosts ({ state, commit }, params = {}) {
+      const { columnId, currentPage = 1, perPage = 3 } = params
+      // console.log(params)
+      const loadedPost = state.posts.loadedColumns[columnId]
+      // 如果loadedPost存在 不为 undefined
+      if (!loadedPost) {
+        return asyncAndCommit(`/api/columns/${columnId}/posts?page=${currentPage}&perPage=${perPage}`, 'fetchPosts', commit, { method: 'get' }, columnId)
+      } else {
+        const loadedPostCurrentPage = loadedPost.currentPage || 0
+        if (loadedPostCurrentPage < currentPage) {
+          return asyncAndCommit(`/api/columns/${columnId}/posts?page=${currentPage}&perPage=${perPage}`, 'fetchPosts', commit, { method: 'get' }, columnId)
+        }
       }
     },
     fetchPost ({ state, commit }, id) {
@@ -147,6 +161,9 @@ const store = createStore<GlobalDataProps>({
     },
     getCurrentPost: (state) => (id: string) => {
       return state.posts.data[id]
+    },
+    getLoadedPost: (state) => (id: string) => {
+      return state.posts.loadedColumns[id]
     }
   }
 })
