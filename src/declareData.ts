@@ -28,7 +28,7 @@ export interface PostProps {
   title: string;
   excerpt?: string;
   content?: string;
-  image?: ImageProps;
+  image?: ImageProps | string;
   createdAt?: string;
   columnId: string;
   authorId?:string;
@@ -65,7 +65,8 @@ export interface GlobalDataProps{
   loading: boolean;
   columns: {
     data: ListProps<ColumnProps>;
-    isLoaded: boolean;
+    currentPage: number;
+    total: number;
   };
   posts: {
     data: ListProps<PostProps>;
