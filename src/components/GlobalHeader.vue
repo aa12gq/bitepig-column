@@ -28,7 +28,7 @@
 import { defineComponent, PropType } from 'vue'
 import Dropdown from '@/base/Dropdown.vue'
 import DropdownItem from '@/base/DropdownItem.vue'
-import { UserProps } from '@/declareData'
+import { UserProps, GlobalDataProps } from '@/declareData'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import createMessage from '@/base/createMessage'
@@ -42,7 +42,7 @@ export default defineComponent({
     }
   },
   setup () {
-    const store = useStore()
+    const store = useStore<GlobalDataProps>()
     const router = useRouter()
     const handleLogout = () => {
       console.log('handleLogout')

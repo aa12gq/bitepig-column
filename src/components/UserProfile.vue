@@ -43,10 +43,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.user-profile-component img {
-  width: 50px;
-  height: 50px;
-  /* border: 1px solid #ccc;
-  border-radius: 50px; */
-}
+
 </style>

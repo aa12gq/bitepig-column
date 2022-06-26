@@ -3,7 +3,8 @@
     <global-header :user="currentUser"></global-header>
       <loader v-if="isLoading" text="拼命加载中"  background="rgba(0, 0, 0, 0.8)"></loader>
      <router-view></router-view>
-    <footer class="text-center py-4 text-secondary bg-light mt-6">
+  </div>
+  <footer class="text-center py-4 text-secondary bg-light mt-auto">
       <small>
         <ul class="list-inline mb-0">
           <li class="list-inline-item">© 2022 咬楼猪专栏</li>
@@ -12,7 +13,6 @@
         </ul>
       </small>
     </footer>
-  </div>
 </template>
 
 <script lang="ts">
@@ -50,9 +50,6 @@ export default defineComponent({
 </script>
 
 <style>
-.container {
-  width: 100vw;
-}
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
