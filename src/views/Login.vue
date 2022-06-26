@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <div class="login-page mx-auto p-3 w-330">
     <h5 class="my-4 text-center">登录咬楼猪账户</h5>
     <validate-form @form-submit="onFormSubmit">
       <div class="mb-3">
@@ -22,7 +22,7 @@
         ></validate-input>
       </div>
       <template v-slot:submit>
-        <button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
+        <button type="submit" class="btn btn-primary btn-block btn-large w-100">登录</button>
       </template>
     </validate-form>
   </div>
@@ -81,3 +81,12 @@ export default defineComponent({
   }
 })
 </script>
+<style scoped>
+.w-330 {
+  max-width: 330px;
+}
+.btn-block{
+  width: 100%;
+  display: block;
+}
+</style>

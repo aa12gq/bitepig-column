@@ -1,5 +1,5 @@
 <template>
-  <div class="contarner">
+  <div class="container-fluid px-0 flex-shrink-0">
     <global-header :user="currentUser"></global-header>
       <loader v-if="isLoading" text="拼命加载中"  background="rgba(0, 0, 0, 0.8)"></loader>
      <router-view></router-view>
@@ -50,6 +50,9 @@ export default defineComponent({
 </script>
 
 <style>
+.container {
+  width: 100vw;
+}
 /* #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
