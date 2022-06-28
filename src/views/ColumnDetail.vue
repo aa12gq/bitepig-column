@@ -2,7 +2,7 @@
   <div class="column-detail-page w-690">
     <div class="column-info row mb-4 border-bottom pb-4 align-items-center" v-if="column">
       <div class="col-3 text-center">
-        <img :src="column.avatar && column.avatar.fitUrl" :alt="column.title" class="rounded-circle border w-100">
+        <img :src="column.avatar && column.avatar.url" :alt="column.title" class="rounded-circle border w-100">
       </div>
       <div class="col-9">
         <h4>{{column.title}}</h4>
@@ -42,14 +42,12 @@ export default defineComponent({
     })
     const total = computed(() => loaded.total)
     watch(store.state.posts.loadedColumns, () => {
-      console.log(store.state.posts.loadedColumns)
       const { currentPage, total } = store.getters.getLoadedPost(currentId)
       loaded.currentPage = currentPage
       loaded.total = total
     })
     onMounted(() => {
       store.dispatch('fetchColumn', currentId)
-      store.dispatch('fetchPosts', currentId)
       store.dispatch('fetchPosts', { columnId: currentId, perPage: 3 })
     })
     const column = computed(() => {

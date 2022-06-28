@@ -43,7 +43,7 @@ export function beforeUploadCheck (file:File, condition:CheckCondition) {
 }
 
 interface TestProps {
-  _id: string;
+  id: string;
   name: string;
 }
 

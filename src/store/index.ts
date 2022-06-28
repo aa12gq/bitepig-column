@@ -41,6 +41,9 @@ const store = createStore<GlobalDataProps>({
     fetchColumn (state, rawData) {
       state.columns.data[rawData.data.id] = rawData.data
     },
+    updateColumn (state, rawData) {
+      state.columns.data = { ...rawData.data }
+    },
     fetchPosts (state, { data: rawData, extraData: columnId }) {
       const { data } = state.posts
       const { TotalCount, CurrentPage } = rawData.pager
@@ -60,7 +63,10 @@ const store = createStore<GlobalDataProps>({
     updatePost (state, { data }) {
       state.posts.data[data.id] = data
     },
-    fetchCurrentUser (state, rawData) {
+    fetchCurrentUser (state, Data) {
+      state.user = { isLogin: true, ...Data.data }
+    },
+    updateUser (state, rawData) {
       state.user = { isLogin: true, ...rawData.data }
     },
     deletePost (state, { data }) {
@@ -96,6 +102,12 @@ const store = createStore<GlobalDataProps>({
       if (!state.columns.data[cid]) {
         return asyncAndCommit(`/api/columns/${cid}`, 'fetchColumn', commit)
       }
+    },
+    updateColumn ({ commit }, payload) {
+      return asyncAndCommit('/api/columns', 'updateColumn', commit, {
+        method: 'put',
+        data: payload
+      })
     },
     fetchPosts ({ state, commit }, params = {}) {
       const { columnId, currentPage = 1, perPage = 3 } = params
@@ -138,6 +150,12 @@ const store = createStore<GlobalDataProps>({
     fetchCurrentUser ({ commit }) {
       return asyncAndCommit('/api/current', 'fetchCurrentUser', commit)
     },
+    updateUser ({ commit }, payload) {
+      return asyncAndCommit('/api/users', 'updateUser', commit, {
+        method: 'put',
+        data: payload
+      })
+    },
     login ({ commit }, payload) {
       return asyncAndCommit('/api/auth/login/using-email', 'login', commit, { method: 'post', data: payload })
     },
@@ -158,10 +176,7 @@ const store = createStore<GlobalDataProps>({
       return state.columns.data[id]
     },
     getPostsByCId: (state) => (cid: string) => {
-      console.log('没过滤的数据', state.posts.data)
-      console.log('过滤后的数据', objToArr(state.posts.data).forEach(post => post.columnId === cid))
-
-      return objToArr(state.posts.data)
+      return objToArr(state.posts.data).filter(post => post.columnId === cid)
     },
     getCurrentPost: (state) => (id: string) => {
       return state.posts.data[id]

@@ -8,7 +8,7 @@
       <small>
         <ul class="list-inline mb-0">
           <li class="list-inline-item">© 2022 咬楼猪专栏</li>
-          <li class="list-inline-item">联系</li>
+          <li class="list-inline-item"><a href="http://github.com/AA12GQ">github</a></li>
           <li class="list-inline-item">更多</li>
         </ul>
       </small>

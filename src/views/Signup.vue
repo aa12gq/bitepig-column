@@ -94,7 +94,7 @@ export default defineComponent({
       if (result) {
         const payload = {
           email: formData.email,
-          nick_name: formData.nickName,
+          nickName: formData.nickName,
           password: formData.password,
           password_confirm: formData.repeatPassword
         }

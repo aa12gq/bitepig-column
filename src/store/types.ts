@@ -6,7 +6,7 @@ export interface ImageProps {
 }
 
 export interface UserProps {
-  isLogin: boolean;
+  isLogin?: boolean;
   nickName?: string;
   id?: string;
   columnId?: string;
@@ -28,7 +28,7 @@ export interface PostProps {
   title: string;
   excerpt?: string;
   content?: string;
-  image?: ImageProps | string;
+  image?: ImageProps | string
   createdAt?: string;
   columnId: string;
   authorId?:string;

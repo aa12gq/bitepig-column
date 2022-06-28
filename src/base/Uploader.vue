@@ -38,6 +38,9 @@ export default defineComponent({
     },
     uploaded: {
       type: Object
+    },
+    toggle: {
+      type: Number
     }
   },
   emits: ['file-uploaded-success', 'file-uploaded-error'],
@@ -50,6 +53,11 @@ export default defineComponent({
       if (newValue) {
         fileStatus.value = 'success'
         uploadedData.value = newValue
+      }
+    })
+    watch(() => props.toggle, (newValue) => {
+      if (newValue === 3) {
+        fileStatus.value = 'ready'
       }
     })
     const triggerUpload = () => {

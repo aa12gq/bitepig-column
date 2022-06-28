@@ -12,6 +12,7 @@
     "bootstrap": "^5.0.0-alpha3",
     "less": "^4.1.2",
     "markdown-it": "^12.0.2",
+    "mavon-editor": "^2.10.4",
     "mitt": "^2.1.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.13",

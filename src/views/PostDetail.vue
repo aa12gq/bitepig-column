@@ -8,7 +8,7 @@
       </ol>
     </nav>
     <article class="mb-5 pb-3">
-      <img :src="currentImageUrl" alt="currentPost.title" class="rounded-lg img-fluid my-4" v-if="currentImageUrl">
+      <img :src="currentImageUrl" alt="currentPost.title" class="rounded-lg img-fluid my-4 " v-if="currentImageUrl">
       <h2 class="mb-4">{{ currentPost.title }}</h2>
       <div class="user-profile-component border-top border-bottom py-3 mb-5 align-items-center row g-0">
         <div class="col">
@@ -17,13 +17,13 @@
         <span class="text-muted col text-right font-italic">发表于：{{ currentPost.createdAt }}</span>
       </div>
       <div v-html="currentHTML"></div>
-        <div v-if="showEditArea" class="btn-group mt-5">
+      <div v-if="showEditArea" class="btn-group mt-5">
         <router-link
           type="button"
           class="btn btn-success"
           :to="{ name: 'create', query: { id: currentPost.id }}"
         >编辑</router-link>
-       <button type="button" class="btn btn-danger" @click.prevent="modalIsVisible = true">删除</button>
+        <button type="button" class="btn btn-danger" @click.prevent="modalIsVisible = true">删除</button>
       </div>
     </article>
     <modal
@@ -71,6 +71,7 @@ export default defineComponent({
       }
       return true
     })
+    // 判断文章用户是否与登录用户一致
     const showEditArea = computed(() => {
       const { isLogin, id } = store.state.user
       if (currentPost.value && currentPost.value.author && isLogin) {
@@ -84,7 +85,7 @@ export default defineComponent({
     const currentImageUrl = computed(() => {
       if (currentPost.value && currentPost.value.image) {
         const { image } = currentPost.value
-        return (image as ImageProps).url + ''
+        return (image as ImageProps).url + '?x-oss-process=image/resize,w_850'
       } else {
         return null
       }
