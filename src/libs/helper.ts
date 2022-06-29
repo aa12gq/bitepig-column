@@ -59,12 +59,13 @@ export const arrToObj = <T extends {id?: string}>(arr: Array<T>) => {
 export const objToArr = <T>(obj: {[key: string]: T}) => {
   return Object.keys(obj).map(key => obj[key])
 }
-// const testData: TestProps[] = [{ _id: '1', name: 'a' }, { _id: '2', name: 'b' }]
-// const testData2: { [key: string]: TestProps } = {
-//   1: { _id: '1', name: 'a' },
-//   2: { _id: '2', name: 'b' }
-// }
-// const result = arrToObj(testData)
-// console.log(result)
-// const result2 = objToArr(testData2)
-// console.log(result2)
+
+export const formDate = (dateForm: string) => {
+  if (dateForm === '') {
+    return ''
+  } else {
+    const dateee = new Date(dateForm).toJSON()
+    const date = new Date(+new Date(dateee) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+    return date
+  }
+}

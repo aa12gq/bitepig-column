@@ -2,14 +2,14 @@
   <div v-if="currentPost" class="post-detail-page w-690">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">首页</a></li>
+        <li class="breadcrumb-item"><a href="home">首页</a></li>
         <li class="breadcrumb-item"><a :href="`/column/${currentPost.columnId}`">专栏首页</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ currentPost.title }}</li>
       </ol>
     </nav>
     <article class="mb-5 pb-3">
       <img :src="currentImageUrl" alt="currentPost.title" class="rounded-lg img-fluid my-4 " v-if="currentImageUrl">
-      <h2 class="mb-4">{{ currentPost.title }}</h2>
+      <h2 class="mb-4">{{ currentPost.title  }}</h2>
       <div class="user-profile-component border-top border-bottom py-3 mb-5 align-items-center row g-0">
         <div class="col">
           <user-profile :user="currentPost.author" v-if="typeof currentPost.author === 'object'"></user-profile>
@@ -47,6 +47,7 @@ import { GlobalDataProps, PostProps, ImageProps, UserProps, ResponseType } from 
 import UserProfile from '@/components/UserProfile.vue'
 import Modal from '@/base/Modal.vue'
 import createMessage from '@/base/createMessage'
+import { formDate } from '@/libs/helper'
 export default defineComponent({
   name: 'PostDetail',
   components: {
@@ -64,6 +65,7 @@ export default defineComponent({
       store.dispatch('fetchPost', currentId)
     })
     const currentPost = computed<PostProps>(() => store.getters.getCurrentPost(currentId))
+    currentPost.value.createdAt = formDate(String(currentPost.value.createdAt))
     const currentHTML = computed(() => {
       const { content, isHTML } = currentPost.value
       if (currentPost.value && content) {

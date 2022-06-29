@@ -4,7 +4,8 @@
       <img :src="fitUrl" :alt="user.nickName" class="rounded-circle img-thumbnail">
       <div class="detail ml-2">
         <h6 class="d-block mb-0">{{ user.nickName }}</h6>
-        <span class="text-truncate text-muted d-block">{{ user.description }}</span>
+        <span class="text-truncate text-muted d-block">
+          {{ user.description.length > 10 ? user.description.substring(0,16) + '...' : user.description }}</span>
       </div>
     </div>
   </div>
@@ -24,13 +25,6 @@ export default defineComponent({
   },
   setup (props) {
     const fitUrl = computed(() => {
-      // let url = ''
-      // if (props.user.avatar && props.user.avatar.url) {
-      //   url = props.user.avatar.url
-      // } else {
-      //   url = require('@/assets/avatar.jpg')
-      // }
-      // return url
       addColumnAvatar(props.user, 50, 50)
       const { avatar } = props.user
       return avatar && avatar.fitUrl

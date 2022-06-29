@@ -18,11 +18,9 @@
 </template>
 
 <script lang="ts">
-// import { defineComponent, PropType } from 'vue'
-// import { PostProps } from '@/declareData'
 import { defineComponent, PropType, computed } from 'vue'
 import { PostProps, ImageProps } from '@/store/types'
-import { generateFitUrl } from '@/libs/helper'
+import { generateFitUrl, formDate } from '@/libs/helper'
 export default defineComponent({
   name: 'PostList',
   props: {
@@ -35,6 +33,7 @@ export default defineComponent({
     const posts = computed(() => {
       return props.list.map(post => {
         generateFitUrl(post.image as ImageProps, 200, 110, ['m_fill'])
+        post.createdAt = formDate(String(post.createdAt))
         return post
       })
     })
