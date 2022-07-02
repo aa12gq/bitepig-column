@@ -1,24 +1,21 @@
-# bitepig
+### 『仿知乎专栏』本项目是高仿知乎专栏的前端项目，使用 Typescript + Vue3.0 从零到一到上线 高仿知乎专栏
 
-## Project setup
+### 安装依赖
+
 ```
-npm install
+npm install / yarn
 ```
 
-### Compiles and hot-reloads for development
+### 运行本地开发环境
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+\- ***\*前端演示站点：[**http://bitepig.aa12.cool/*]**(http://bitepig.aa12.cool/)***\
 
-### Lints and fixes files
-```
-npm run lint
-```
+\- 后端 API 查询站点：[http://bitepig.aa12.cool/swagger/index.html](http://bitepig.aa12.cool/swagger/index.html)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**## 演示信息**
+
+账号密码: test@test.com / 123456
