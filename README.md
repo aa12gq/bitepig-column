@@ -18,6 +18,18 @@ npm run serve
 
 \- 后端 API 文档：[https://console-docs.apipost.cn/preview/1a17e8f373c5342d/93ea07fcf026e7e6)
 
-**## 演示信息**
+**## 项目演示**
 
-账号密码: test@test.com / 123456
+https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877809319149569.jpg
+
+https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877839367143425.jpg
+
+https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877366736191489.jpg
+
+https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877455789654017.jpg
+
+https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877760161906689.jpg
+
+https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877786770571265.jpg
+
+
