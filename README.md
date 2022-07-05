@@ -20,16 +20,15 @@ npm run serve
 
 **## 项目演示**
 
-https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877809319149569.jpg
+![image-20220706002517864](https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877809319149569.jpg)
 
-https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877839367143425.jpg
+![image-20220706002517864](https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877839367143425.jpg)
 
-https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877366736191489.jpg
+![image-20220706002517864](https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877366736191489.jpg)
 
-https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877455789654017.jpg
+![image-20220706002517864](https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877455789654017.jpg)
 
-https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877760161906689.jpg
+![image-20220706002517864](https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877760161906689.jpg)
 
-https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877786770571265.jpg
-
+![image-20220706002517864](https://bitpig-column.oss-cn-hangzhou.aliyuncs.com/AA12/132877786770571265.jpg)
 
